@@ -17,7 +17,7 @@ export const post = async (body) => {
   })
 
   const { status } = response
-  if (status >= 400) {
+  if (status === 404) {
     return { status }
   }
 
@@ -32,7 +32,7 @@ export const get = async (hash) => {
   })
 
   const { status } = response
-  if (status >= 400) {
+  if (status === 404) {
     return { status }
   }
 

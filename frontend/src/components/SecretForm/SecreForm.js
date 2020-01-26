@@ -55,7 +55,7 @@ export const SecreForm = () => {
         <TextField type="number" label="ExpireAfterViews" color="secondary" margin="normal"
           value={data.expireAfterViews} onChange={handleChange("expireAfterViews")}
         />
-        <TextField label="ExpireAfter" color="secondary" margin="normal"
+        <TextField type="number" label="ExpireAfter" color="secondary" margin="normal"
           value={data.expireAfter} onChange={handleChange("expireAfter")}
         />
         <Button
