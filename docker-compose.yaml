@@ -1,0 +1,41 @@
+version: '3.7'
+
+services:
+
+  abc-docker-frontend:
+    image: abc-docker-frontend:v1
+    container_name: abc-docker-frontend
+    build:
+      context: ./frontend
+    ports:
+      - 80:3000
+    restart: unless-stopped
+
+  abc-docker-backend:
+    image: abc-docker-backend:v1
+    container_name: abc-docker-backend
+    build:
+      context: ./backend
+    environment:
+      PORT: 8080
+      DB_HOST: abc-docker-mongodb
+      DB_PORT: 27017
+      DB_NAME: abc-docker
+      DB_USERNAME: root
+      DB_PASSWORD: rootpw
+      ENCRYPT_SECRET: thisIsAnExampleOfa32BytesSecret!
+    ports:
+      - 8080:8080
+    depends_on:
+      - abc-docker-mongodb
+    restart: unless-stopped
+
+  abc-docker-mongodb:
+    image: mongo:4.1.13
+    container_name: abc-docker-mongodb
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpw
+    ports:
+      - 27017:27017
+    restart: unless-stopped
