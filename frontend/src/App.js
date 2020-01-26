@@ -1,5 +1,6 @@
 import React from "react"
 import { makeStyles, Typography } from "@material-ui/core"
+import { SnackBarProvider } from "./components/Snackbar"
 import { SecreForm, Secret } from "./components/SecretForm"
 
 const useStyles = makeStyles((theme) => ({
@@ -27,11 +28,13 @@ export const App = () => {
   return (
     <div className={classes.root}>
       <div className={classes.container}>
-        <Typography classes={{ root: classes.typography }} variant="h3" color="secondary">
-          Secret
-        </Typography>
-        <SecreForm />
-        <Secret />
+        <SnackBarProvider>
+          <Typography classes={{ root: classes.typography }} variant="h3" color="secondary">
+            Secret
+          </Typography>
+          <SecreForm />
+          <Secret />
+        </SnackBarProvider>
       </div>
     </div>
   )
