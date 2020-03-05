@@ -2,9 +2,9 @@ version: '3.7'
 
 services:
 
-  abc-docker-frontend:
+  frontend:
     image: node:12.14.1-alpine
-    container_name: abc-docker-frontend
+    container_name: frontend
     working_dir: /usr/src/frontend
     command: "npm run start"
     environment:

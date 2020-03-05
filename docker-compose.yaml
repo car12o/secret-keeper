@@ -2,9 +2,9 @@ version: '3.7'
 
 services:
 
-  abc-docker-frontend:
-    image: abc-docker-frontend:v1
-    container_name: abc-docker-frontend
+  frontend:
+    image: frontend:v1
+    container_name: frontend
     build:
       context: ./frontend
     environment:
@@ -13,14 +13,14 @@ services:
       - 80:3000
     restart: unless-stopped
 
-  abc-docker-backend:
-    image: abc-docker-backend:v1
-    container_name: abc-docker-backend
+  backend:
+    image: backend:v1
+    container_name: backend
     build:
       context: ./backend
     environment:
       PORT: 8080
-      DB_HOST: abc-docker-mongodb
+      DB_HOST: mongodb
       DB_PORT: 27017
       DB_NAME: abc-docker
       DB_USERNAME: root
@@ -29,12 +29,12 @@ services:
     ports:
       - 8080:8080
     depends_on:
-      - abc-docker-mongodb
+      - mongodb
     restart: unless-stopped
 
-  abc-docker-mongodb:
+  mongodb:
     image: mongo:4.1.13
-    container_name: abc-docker-mongodb
+    container_name: mongodb
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: rootpw
