@@ -22,7 +22,7 @@ jobs:
       - restore_cache:
           key: setup_frontend-{{ arch }}-{{ .Branch }}
       - run: pwd && ls -la
-      - run: npm run lint
+      - run: cd frontend && npm run lint
 
   test_frontend:
     executor: node
@@ -30,7 +30,7 @@ jobs:
       - restore_cache:
           key: setup_frontend-{{ arch }}-{{ .Branch }}
       - run: pwd && ls -la
-      - run: npm run test
+      - run: cd frontend && npm run test
 
 
 workflows:
