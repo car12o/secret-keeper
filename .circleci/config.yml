@@ -70,7 +70,7 @@ jobs:
     executor: go
     steps:
       - restore_cache:
-        key: docker-images-{{ .Environment.CIRCLE_SHA1 }}
+          key: docker-images-{{ .Environment.CIRCLE_SHA1 }}
       - run: ls -la
       - setup_remote_docker
       - run: scp ./backend.tar remote-docker:/home/backend.tar
