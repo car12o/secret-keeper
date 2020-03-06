@@ -60,6 +60,11 @@ jobs:
       # - restore_cache:
       #     key: setup_frontend-{{ .Environment.CIRCLE_SHA1 }}
       - run: docker-compose build
+      - run: docker save -o ./backend.tar backend:latest
+      - save_cache:
+          key: docker-images-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - backend.tar
 
 workflows:
   version: 2
