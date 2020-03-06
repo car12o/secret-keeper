@@ -9,7 +9,7 @@ jobs:
 
   lint_and_test_frontend:
     docker:
-      - image: circleci/ruby:2.4.1
+      - image: circleci/node:12.16.1
     steps:
       - checkout
       - run: cd frontend && npm i
