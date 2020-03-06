@@ -8,20 +8,20 @@ jobs:
       - checkout
       - run: cd frontend && npm i
       - save_cache:
-        key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
-        paths:
-          - frontend
+          key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
+          paths:
+            - frontend
 
   lint_frontend:
     steps:
       - restore_cache:
-        key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
+          key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
       - run: cd frontend && npm run lint
 
   test_frontend:
     steps:
       - restore_cache:
-        key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
+          key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
       - run: cd frontend && npm run test
 
 
