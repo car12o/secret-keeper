@@ -66,6 +66,16 @@ jobs:
           paths:
             - backend.tar
 
+  bootstrap:
+    executor: go
+    steps:
+      - restore_cache:
+        key: docker-images-{{ .Environment.CIRCLE_SHA1 }}
+      - run: ls -la
+      - setup_remote_docker
+      - run: scp ./backend.tar remote-docker:/home/backend.tar
+
+
 workflows:
   version: 2
   main:
@@ -86,3 +96,6 @@ workflows:
             - setup_backend
             # - lint_frontend
             # - test_frontend
+      - bootstrap:
+          requires:
+            - build_images
