@@ -14,7 +14,7 @@ jobs:
     steps:
       - checkout
       - run: cd backend && go mod vendor
-      - run: go get -u golang.org/x/lint/golint && cp /go/bin/golint . && apk add fgt
+      - run: go get -u golang.org/x/lint/golint && cp /go/bin/golint . && apt-get install -y fgt
       - save_cache:
           key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
           paths:
