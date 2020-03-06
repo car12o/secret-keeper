@@ -64,9 +64,9 @@ workflows:
   main:
     jobs:
       - setup_backend
-      # - lint_backend:
-      #     requires:
-      #       - setup_backend
+      - lint_backend:
+          requires:
+            - setup_backend
       - test_backend:
           requires:
             - setup_backend
