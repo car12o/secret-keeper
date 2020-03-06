@@ -1,14 +1,13 @@
 version: 2
 
 executors:
-  my-executor:
+  node:
     docker:
       - image: circleci/node:12.16.1
 
 jobs:
   setup_frontend:
-    docker:
-      - image: circleci/node:12.16.1
+    executor: node
     steps:
       - checkout
       - run: cd frontend && npm i
@@ -17,19 +16,19 @@ jobs:
           paths:
             - frontend
 
-  # lint_frontend:
-  #   executor: my-executor
-  #   steps:
-  #     - restore_cache:
-  #         key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
-  #     - run: cd frontend && npm run lint
+  lint_frontend:
+    executor: node
+    steps:
+      - restore_cache:
+          key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
+      - run: cd frontend && npm run lint
 
-  # test_frontend:
-  #   executor: my-executor
-  #   steps:
-  #     - restore_cache:
-  #         key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
-  #     - run: cd frontend && npm run test
+  test_frontend:
+    executor: node
+    steps:
+      - restore_cache:
+          key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
+      - run: cd frontend && npm run test
 
 
 workflows:
