@@ -57,8 +57,8 @@ jobs:
     steps:
       - restore_cache:
           key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
-      - restore_cache:
-          key: setup_frontend-{{ .Environment.CIRCLE_SHA1 }}
+      # - restore_cache:
+      #     key: setup_frontend-{{ .Environment.CIRCLE_SHA1 }}
       - run: docker-compose build
 
 workflows:
@@ -66,18 +66,18 @@ workflows:
   main:
     jobs:
       - setup_backend
-      - test_backend:
-          requires:
-            - setup_backend
-      - setup_frontend
-      - lint_frontend:
-          requires:
-            - setup_frontend
-      - test_frontend:
-          requires:
-            - setup_frontend
+      # - test_backend:
+      #     requires:
+      #       - setup_backend
+      # - setup_frontend
+      # - lint_frontend:
+      #     requires:
+      #       - setup_frontend
+      # - test_frontend:
+      #     requires:
+      #       - setup_frontend
       - build_images:
           requires:
-            - test_backend
-            - lint_frontend
-            - test_frontend
+            - setup_backend
+            # - lint_frontend
+            # - test_frontend

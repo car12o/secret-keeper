@@ -2,16 +2,16 @@ version: '3.2'
 
 services:
 
-  frontend:
-    image: frontend:v1
-    container_name: frontend
-    build:
-      context: ./frontend
-    environment:
-      REACT_APP_API_URL: http://0.0.0.0:8080
-    ports:
-      - 80:3000
-    restart: unless-stopped
+  # frontend:
+  #   image: frontend:v1
+  #   container_name: frontend
+  #   build:
+  #     context: ./frontend
+  #   environment:
+  #     REACT_APP_API_URL: http://0.0.0.0:8080
+  #   ports:
+  #     - 80:3000
+  #   restart: unless-stopped
 
   backend:
     image: backend:v1
@@ -32,12 +32,12 @@ services:
       - mongodb
     restart: unless-stopped
 
-  mongodb:
-    image: mongo:4.1.13
-    container_name: mongodb
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: rootpw
-    ports:
-      - 27017:27017
-    restart: unless-stopped
+  # mongodb:
+  #   image: mongo:4.1.13
+  #   container_name: mongodb
+  #   environment:
+  #     MONGO_INITDB_ROOT_USERNAME: root
+  #     MONGO_INITDB_ROOT_PASSWORD: rootpw
+  #   ports:
+  #     - 27017:27017
+  #   restart: unless-stopped
