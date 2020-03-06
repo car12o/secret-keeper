@@ -13,7 +13,8 @@ jobs:
     executor: go
     steps:
       - checkout
-      - run: cd backend && go get -u golang.org/x/lint/golint && cp /go/bin/golint . && go mod vendor
+      - run: cd backend && go mod vendor
+      - run: go get -u golang.org/x/lint/golint && cp /go/bin/golint . && apk add fgt
       - save_cache:
           key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
           paths:
@@ -24,8 +25,7 @@ jobs:
     steps:
       - restore_cache:
           key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
-      - run: pwd && ls -la && ls -la backend
-      - run: cd backend && ./golint -set_exit_status=1 .
+      - run: cd backend && fgt ./golint ./...
 
   test_backend:
     executor: go
