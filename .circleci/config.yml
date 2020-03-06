@@ -21,14 +21,16 @@ jobs:
     steps:
       - restore_cache:
           key: setup_frontend-{{ arch }}{{ .Branch }}
-      - run: cd frontend && npm run lint
+      - run: pwd
+      - run: npm run lint
 
   test_frontend:
     executor: node
     steps:
       - restore_cache:
           key: setup_frontend-{{ arch }}{{ .Branch }}
-      - run: cd frontend && npm run test
+      - run: pwd
+      - run: npm run test
 
 
 workflows:
