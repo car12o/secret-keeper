@@ -18,6 +18,7 @@ jobs:
           key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - backend
+            - /go
 
   lint_backend:
     executor: go
