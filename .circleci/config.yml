@@ -27,6 +27,13 @@ jobs:
       - run: pwd && ls -la && ls -la backend
       - run: cd backend && ./golint -set_exit_status=1 .
 
+  test_backend:
+    executor: go
+    steps:
+      - restore_cache:
+          key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
+      - run: cd backend && go test ./...
+
   setup_frontend:
     executor: node
     steps:
@@ -57,7 +64,10 @@ workflows:
   main:
     jobs:
       - setup_backend
-      - lint_backend:
+      # - lint_backend:
+      #     requires:
+      #       - setup_backend
+      - test_backend:
           requires:
             - setup_backend
       - setup_frontend
