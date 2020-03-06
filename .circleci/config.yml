@@ -8,12 +8,13 @@ executors:
     docker:
       - image: circleci/golang:1.13.4
 
+
 jobs:
   setup_backend:
     executor: go
     steps:
       - checkout
-      - run: cd backend && go mod vendor
+      - run: cd backend && go mod vendor && go build
       - save_cache:
           key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
           paths:
@@ -50,6 +51,14 @@ jobs:
           key: setup_frontend-{{ .Environment.CIRCLE_SHA1 }}
       - run: cd frontend && npm run test
 
+  build_backend:
+    machine: true
+    steps:
+      - restore_cache:
+          key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
+          key: setup_frontend-{{ .Environment.CIRCLE_SHA1 }}
+      - run: ls -la
 
 workflows:
   version: 2
@@ -66,3 +75,6 @@ workflows:
       - test_frontend:
           requires:
             - setup_frontend
+      - build_backend:
+          requires:
+            - test_backend
