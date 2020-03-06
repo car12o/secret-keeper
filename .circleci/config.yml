@@ -24,6 +24,8 @@ jobs:
     steps:
       - restore_cache:
           key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
+      - run: pwd && ls -la && ls -la backend
+      - run: ls -la /go && ls -la /go/bin
       - run: cd backend && golint .
 
   setup_frontend:
