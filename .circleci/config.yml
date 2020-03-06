@@ -73,8 +73,9 @@ jobs:
           key: docker-images-{{ .Environment.CIRCLE_SHA1 }}
       - setup_remote_docker
       - run: scp ./backend.tar remote-docker:/tmp/backend.tar
-      - run: docker load -i /tmp/backend.tar
-      - run: docker images
+      - run: ssh remote-docker && pwd && ls -la && ls -la /tmp
+      # - run: docker load -i /tmp/backend.tar
+      # - run: docker images
 
 
 workflows:
