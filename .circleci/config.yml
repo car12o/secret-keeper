@@ -1,19 +1,32 @@
 version: 2
 
 jobs:
-  lint_and_test_backend:
+  lint_backend:
     docker:
       - image: circleci/ruby:2.4.1
     steps:
       - checkout
 
-  lint_and_test_frontend:
+  test_backend:
+    docker:
+      - image: circleci/ruby:2.4.1
+    steps:
+      - checkout
+
+  lint_frontend:
     docker:
       - image: circleci/node:12.16.1
     steps:
       - checkout
       - run: cd frontend && npm i
       - run: npm run lint
+
+  test_frontend:
+    docker:
+      - image: circleci/node:12.16.1
+    steps:
+      - checkout
+      - run: cd frontend && npm i
       - run: npm run test
 
 
@@ -21,6 +34,8 @@ workflows:
   version: 2
   lint_and_test:
     jobs:
-      # - lint_and_test_backend
-      - lint_and_test_frontend
+      # - lint_backend
+      # - test_backend
+      - lint_frontend
+      - test_frontend
 
