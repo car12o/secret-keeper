@@ -1,18 +1,6 @@
 version: 2
 
 jobs:
-  lint_backend:
-    docker:
-      - image: circleci/ruby:2.4.1
-    steps:
-      - checkout
-
-  test_backend:
-    docker:
-      - image: circleci/ruby:2.4.1
-    steps:
-      - checkout
-
   setup_frontend:
     docker:
       - image: circleci/node:12.16.1
@@ -25,16 +13,12 @@ jobs:
           - frontend
 
   lint_frontend:
-    docker:
-      - image: circleci/node:12.16.1
-      steps:
-        - restore_cache:
-          key: setup_frontend-{{ arch }}-{{ checksum "package-lock.json" }}
-        - run: cd frontend && npm run lint
+    steps:
+      - restore_cache:
+        key: setup_frontend-{{ arch }}-{{ checksum "package-lock.json" }}
+      - run: cd frontend && npm run lint
 
   test_frontend:
-    docker:
-      - image: circleci/node:12.16.1
     steps:
       - restore_cache:
         key: setup_frontend-{{ arch }}-{{ checksum "package-lock.json" }}
