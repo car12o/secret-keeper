@@ -31,6 +31,8 @@ workflows:
     jobs:
       - setup_frontend
       - lint_frontend:
-          requires: setup_frontend
+          requires:
+            - setup_frontend
       - test_frontend:
-          requires: setup_frontend
+          requires:
+            - setup_frontend
