@@ -19,6 +19,7 @@ jobs:
           key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - backend
+            - docker-compose.yaml
 
   test_backend:
     executor: go
