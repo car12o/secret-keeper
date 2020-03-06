@@ -18,24 +18,21 @@ jobs:
       - image: circleci/node:12.16.1
     steps:
       - checkout
-      - run: cd frontend && npm i
-      - run: npm run lint
+      - run: cd frontend && npm i && npm run lint
 
   test_frontend:
     docker:
       - image: circleci/node:12.16.1
     steps:
       - checkout
-      - run: cd frontend && npm i
-      - run: npm run test
+      - run: cd frontend && npm i && npm run test
 
 
 workflows:
   version: 2
-  lint_and_test:
+  main:
     jobs:
       # - lint_backend
       # - test_backend
       - lint_frontend
       - test_frontend
-
