@@ -25,7 +25,7 @@ jobs:
       - restore_cache:
           key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
       - run: pwd && ls -la && ls -la backend
-      - run: cd backend && ./golint .
+      - run: cd backend && ./golint -set_exit_status=1 .
 
   setup_frontend:
     executor: node
