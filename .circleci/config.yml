@@ -51,7 +51,7 @@ jobs:
           key: setup_frontend-{{ .Environment.CIRCLE_SHA1 }}
       - run: cd frontend && npm run test
 
-  build_backend:
+  build_images:
     machine: true
     steps:
       - restore_cache:
@@ -75,6 +75,8 @@ workflows:
       - test_frontend:
           requires:
             - setup_frontend
-      - build_backend:
+      - build_images:
           requires:
             - test_backend
+            - lint_frontend
+            - test_frontend
