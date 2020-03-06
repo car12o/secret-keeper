@@ -19,6 +19,13 @@ jobs:
           paths:
             - backend
 
+  lint_backend:
+    executor: go
+    steps:
+      - restore_cache:
+          key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
+      - run: cd backend && golint .
+
   setup_frontend:
     executor: node
     steps:
@@ -34,7 +41,6 @@ jobs:
     steps:
       - restore_cache:
           key: setup_frontend-{{ .Environment.CIRCLE_SHA1 }}
-      - run: pwd && ls -la
       - run: cd frontend && npm run lint
 
   test_frontend:
@@ -42,7 +48,6 @@ jobs:
     steps:
       - restore_cache:
           key: setup_frontend-{{ .Environment.CIRCLE_SHA1 }}
-      - run: pwd && ls -la
       - run: cd frontend && npm run test
 
 
@@ -51,6 +56,9 @@ workflows:
   main:
     jobs:
       - setup_backend
+      - lint_backend:
+          requires:
+            - setup_backend
       - setup_frontend
       - lint_frontend:
           requires:
