@@ -13,26 +13,40 @@ jobs:
     steps:
       - checkout
 
-  lint_frontend:
+  setup_frontend:
     docker:
       - image: circleci/node:12.16.1
     steps:
       - checkout
-      - run: cd frontend && npm i && npm run lint
+      - run: cd frontend && npm i
+      - save_cache:
+        key: setup_frontend-{{ arch }}-{{ checksum "package-lock.json" }}
+        paths:
+          - frontend
+
+  lint_frontend:
+    docker:
+      - image: circleci/node:12.16.1
+      steps:
+        - restore_cache:
+          key: setup_frontend-{{ arch }}-{{ checksum "package-lock.json" }}
+        - run: cd frontend && npm run lint
 
   test_frontend:
     docker:
       - image: circleci/node:12.16.1
     steps:
-      - checkout
-      - run: cd frontend && npm i && npm run test
+      - restore_cache:
+        key: setup_frontend-{{ arch }}-{{ checksum "package-lock.json" }}
+      - run: cd frontend && npm run test
 
 
 workflows:
   version: 2
   main:
     jobs:
-      # - lint_backend
-      # - test_backend
-      - lint_frontend
-      - test_frontend
+      - setup_frontend
+      - lint_frontend:
+          requires: setup_frontend
+      - test_frontend:
+          requires: setup_frontend
