@@ -20,16 +20,16 @@ jobs:
     executor: node
     steps:
       - restore_cache:
-          key: setup_frontend-{{ arch }}{{ .Branch }}
-      - run: pwd
+          key: setup_frontend-{{ arch }}-{{ .Branch }}
+      - run: pwd && ls -la
       - run: npm run lint
 
   test_frontend:
     executor: node
     steps:
       - restore_cache:
-          key: setup_frontend-{{ arch }}{{ .Branch }}
-      - run: pwd
+          key: setup_frontend-{{ arch }}-{{ .Branch }}
+      - run: pwd && ls -la
       - run: npm run test
 
 
