@@ -9,11 +9,4 @@ func TestSecretModel(t *testing.T) {
 			t.Errorf("r not true")
 		}
 	})
-
-	t.Run("Test example false", func(t *testing.T) {
-		r := false
-		if r != true {
-			t.Errorf("r not true")
-		}
-	})
 }
