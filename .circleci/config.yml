@@ -4,15 +4,28 @@ executors:
   node:
     docker:
       - image: circleci/node:12.16.1
+  go:
+    docker:
+      - image: circleci/golang:1.13.4
 
 jobs:
+  setup_backend:
+    executor: go
+    steps:
+      - checkout
+      - run: cd backend && go get -u golang.org/x/lint/golint && go mod vendor
+      - save_cache:
+          key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
+          paths:
+            - backend
+
   setup_frontend:
     executor: node
     steps:
       - checkout
       - run: cd frontend && npm i
       - save_cache:
-          key: setup_frontend-{{ arch }}-{{ .Branch }}
+          key: setup_frontend-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - frontend
 
@@ -20,7 +33,7 @@ jobs:
     executor: node
     steps:
       - restore_cache:
-          key: setup_frontend-{{ arch }}-{{ .Branch }}
+          key: setup_frontend-{{ .Environment.CIRCLE_SHA1 }}
       - run: pwd && ls -la
       - run: cd frontend && npm run lint
 
@@ -28,7 +41,7 @@ jobs:
     executor: node
     steps:
       - restore_cache:
-          key: setup_frontend-{{ arch }}-{{ .Branch }}
+          key: setup_frontend-{{ .Environment.CIRCLE_SHA1 }}
       - run: pwd && ls -la
       - run: cd frontend && npm run test
 
@@ -37,6 +50,7 @@ workflows:
   version: 2
   main:
     jobs:
+      - setup_backend
       - setup_frontend
       - lint_frontend:
           requires:
