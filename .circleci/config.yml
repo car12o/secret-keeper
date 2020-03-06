@@ -35,7 +35,7 @@ workflows:
   version: 2
   main:
     jobs:
-      - setup_frontend:
+      - setup_frontend
       # - lint_frontend:
       #     requires:
       #       - setup_frontend
