@@ -16,19 +16,19 @@ jobs:
           paths:
             - frontend
 
-  lint_frontend:
-    executor: my-executor
-    steps:
-      - restore_cache:
-          key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
-      - run: cd frontend && npm run lint
+  # lint_frontend:
+  #   executor: my-executor
+  #   steps:
+  #     - restore_cache:
+  #         key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
+  #     - run: cd frontend && npm run lint
 
-  test_frontend:
-    executor: my-executor
-    steps:
-      - restore_cache:
-          key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
-      - run: cd frontend && npm run test
+  # test_frontend:
+  #   executor: my-executor
+  #   steps:
+  #     - restore_cache:
+  #         key: setup_frontend-{{ arch }}-{{ checksum "frontend/package-lock.json" }}
+  #     - run: cd frontend && npm run test
 
 
 workflows:
