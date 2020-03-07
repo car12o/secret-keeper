@@ -82,7 +82,7 @@ jobs:
       - run: docker ps -a
       - run: |
             docker run --network container:backend \
-            appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/backend
+            appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/backend/test
 
 workflows:
   version: 2
