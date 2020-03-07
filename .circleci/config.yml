@@ -72,14 +72,13 @@ jobs:
       - restore_cache:
           key: docker-images-{{ .Environment.CIRCLE_SHA1 }}
       - setup_remote_docker
+      - run: ls -la
       - run: scp ./backend.tar remote-docker:/tmp/backend.tar
       - run: scp ./docker-compose.yaml remote-docker:/tmp/docker-compose.yaml
-      # - run: ssh remote-docker "pwd && ls -la && ls -la /circleci"
-      # - run: ssh remote-docker "docker load -i /circleci/backend.tar"
-      # - run: ssh remote-docker "docker images"
       - run: docker load -i /tmp/backend.tar
-      # - run: docker images
-      - run: docker-compose up -d
+      # - run: ssh remote-docker "docker load -i /tmp/backend.tar"
+      - run: docker-compose -f /tmp/docker-compose.yaml up -d
+      # - run: ssh remote-docker "docker-compose -f /tmp/docker-compose.yaml up -d"
 
 
 
