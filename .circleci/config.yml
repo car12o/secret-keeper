@@ -73,6 +73,7 @@ jobs:
           key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache:
           key: docker-images-{{ .Environment.CIRCLE_SHA1 }}
+      - run: docker load -i backend.tar
       - run: |
             set -x
             docker-compose up -d
