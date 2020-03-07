@@ -77,7 +77,7 @@ jobs:
             scp ./backend.tar remote-docker:~/backend.tar &&
             scp ./docker-compose.yaml remote-docker:~/docker-compose.yaml
       - run: ssh remote-docker "docker load -i ~/backend.tar"
-      - run: ssh remote-docker "~/ ls -la && ls -la"
+      - run: ssh remote-docker "cd ~/ && ls -la && ls -la"
       - run: ssh remote-docker "cd ~/ && pwd && ls -la && docker-compose up -d"
 
 workflows:
