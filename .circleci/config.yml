@@ -78,9 +78,10 @@ jobs:
             scp ./docker-compose.yaml remote-docker:~/docker-compose.yaml
             ssh remote-docker "mkdir backend"
       - run: ssh remote-docker "docker load -i ~/backend.tar"
-      - run: ssh remote-docker "ls -la"
-      # - run: ssh remote-docker "pwd && ls -la && docker-compose up -d"
-      - run: docker-compose up -d
+      - run: ssh remote-docker "docker-compose up -d"
+      - run: docker ps -a
+      - run: ping remote-docker
+      - run: curl remote-docker:8080
 
 workflows:
   version: 2
