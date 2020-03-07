@@ -65,12 +65,11 @@ jobs:
           key: docker-images-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - backend.tar
+            - docker-compose.yaml
 
   bootstrap:
     executor: go
     steps:
-      - restore_cache:
-          key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
       - restore_cache:
           key: docker-images-{{ .Environment.CIRCLE_SHA1 }}
       - setup_remote_docker
