@@ -75,7 +75,7 @@ jobs:
       - setup_remote_docker
       - run: ls -la
       - run: scp ./backend.tar remote-docker:/tmp/backend.tar
-      - run: scp ./docker-compose.yaml remote-docker:/tmp/docker-compose.yaml && chmod 777 /tmp/docker-compose.yaml
+      - run: scp ./docker-compose.yaml remote-docker:/tmp/docker-compose.yaml && cat /tmp/docker-compose.yaml
       - run: ssh remote-docker "docker load -i /tmp/backend.tar"
       - run: ssh remote-docker "cd /tmp && pwd && ls -la && docker-compose up -d"
 
