@@ -76,8 +76,8 @@ jobs:
       - run: ls -la
       - run: scp ./backend.tar remote-docker:/tmp/backend.tar
       - run: scp ./docker-compose.yaml remote-docker:/tmp/docker-compose.yaml
-      - run: docker load -i /tmp/backend.tar
-      # - run: ssh remote-docker "docker load -i /tmp/backend.tar"
+      # - run: docker load -i /tmp/backend.tar
+      - run: ssh remote-docker "docker load -i /tmp/backend.tar"
       - run: docker-compose -f /tmp/docker-compose.yaml up -d
       # - run: ssh remote-docker "docker-compose -f /tmp/docker-compose.yaml up -d"
 
