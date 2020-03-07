@@ -80,7 +80,7 @@ jobs:
       - run: ssh remote-docker "docker load -i ~/backend.tar"
       - run: ssh remote-docker "docker-compose up -d"
       - run: docker ps -a
-      - run: curl remote-docker:8080
+      - run: curl 0.0.0.0:8080
 
 workflows:
   version: 2
