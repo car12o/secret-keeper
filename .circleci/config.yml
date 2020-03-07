@@ -74,10 +74,10 @@ jobs:
           key: docker-images-{{ .Environment.CIRCLE_SHA1 }}
       - setup_remote_docker
       - run: ls -la
-      - run: scp ./backend.tar remote-docker:/tmp/backend.tar
-      - run: scp ./docker-compose.yaml remote-docker:/tmp/docker-compose.yaml && cat /tmp/docker-compose.yaml
-      - run: ssh remote-docker "docker load -i /tmp/backend.tar"
-      - run: ssh remote-docker "cd /tmp && pwd && ls -la && docker-compose up -d"
+      - run: scp ./backend.tar remote-docker:~/backend.tar
+      - run: scp ./docker-compose.yaml remote-docker:~/docker-compose.yaml && cat ~/docker-compose.yaml
+      - run: ssh remote-docker "docker load -i ~/backend.tar"
+      - run: ssh remote-docker "cd ~/&& pwd && ls -la && docker-compose up -d"
 
 workflows:
   version: 2
