@@ -78,7 +78,7 @@ jobs:
             set -x
             docker-compose up -d &&
             docker run --network container:backend \
-              appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://backend:8080
+              appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://backend:8080/metrics
 
 workflows:
   version: 2
