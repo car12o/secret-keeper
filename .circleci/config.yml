@@ -77,7 +77,7 @@ jobs:
       - run: |
             set -x
             docker-compose up -d &&
-            docker run --network container:backend \
+            docker run --network container:backend circleci/node:12.16.1 \
               appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/backend/test
 
 workflows:
