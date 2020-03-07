@@ -65,24 +65,21 @@ jobs:
           key: docker-images-{{ .Environment.CIRCLE_SHA1 }}
           paths:
             - backend.tar
-            - docker-compose.yaml
 
   bootstrap:
-    executor: go
+    machine: true
     steps:
       - restore_cache:
+          key: setup_backend-{{ .Environment.CIRCLE_SHA1 }}
+      - restore_cache:
           key: docker-images-{{ .Environment.CIRCLE_SHA1 }}
-      - setup_remote_docker
-      - run: |
-            scp ./backend.tar remote-docker:~/backend.tar &&
-            scp ./docker-compose.yaml remote-docker:~/docker-compose.yaml
-            ssh remote-docker "mkdir backend"
       - run: ssh remote-docker "docker load -i ~/backend.tar"
       - run: ssh remote-docker "docker-compose up -d"
-      - run: docker ps -a
       - run: |
+            set -x
+            docker-compose up -d
             docker run --network container:backend \
-            appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/backend/test
+              appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/backend/test
 
 workflows:
   version: 2
