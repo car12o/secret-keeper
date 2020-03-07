@@ -81,7 +81,7 @@ jobs:
       - run: ssh remote-docker "docker-compose up -d"
       # - run: curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080
       - run: |
-            docker run --network container:contacts \
+            docker run --network container:backend \
             appropriate/curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080
 
 workflows:
