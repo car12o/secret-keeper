@@ -74,10 +74,15 @@ jobs:
       - restore_cache:
           key: docker-images-{{ .Environment.CIRCLE_SHA1 }}
       - run: docker load -i backend.tar
+      - run: docker ps -a
+      - run: docker ps -a
+      - run: docker ps -a
+      - run: docker ps -a
+      - run: docker ps -a
       - run: |
             set -x
-            docker-compose up -d &&
-            docker run --network container:backend circleci/node:12.16.1 \
+            docker-compose up -d
+            docker run --network container:backend \
               curl --retry 10 --retry-delay 1 --retry-connrefused http://localhost:8080/backend/test
 
 workflows:
